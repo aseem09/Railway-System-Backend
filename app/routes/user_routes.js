@@ -1,21 +1,10 @@
+var express = require('express');
+
+const userController = require("../controllers/user_controller.js");
+
 module.exports = app => {
-    const users = require("../controllers/user_controller.js");
 
-    // Create a new User
-    app.post("/users", users.create);
+  app.get('/users', userController.getUsers);
+  app.post("/users", userController.create);
 
-    // Retrieve all Users
-    app.get("/users", users.findAll);
-
-    // Retrieve a single User with userId
-    app.get("/users/:userId", users.findOne);
-
-    // Update a User with userId
-    app.put("/users/:userId", users.update);
-
-    // Delete a User with userId
-    app.delete("/users/:userId", users.delete);
-
-    // Create a new User
-    app.delete("/users", users.deleteAll);
-  };
+};
