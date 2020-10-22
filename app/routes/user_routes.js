@@ -1,14 +1,12 @@
-var express = require('express');
+const userController = require("../controllers/user_controller");
 
-const userController = require("../controllers/user_controller.js");
+module.exports.routes = router => {
 
-module.exports = app => {
-
-  app.post('/users', function (req, res) {
-    userController.Create
-  });
-  app.get('/users', function (req, res) {
-    userController.Create
-  });
+  router.post('/users', (req, res, next) =>
+    userController.create(req, res, next)
+  );
+  router.get('/users', (req, res, next) =>
+    userController.getUsers(req, res, next)
+  );
 
 };

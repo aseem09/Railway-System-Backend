@@ -1,8 +1,10 @@
 const User = require("../models/user_model.js");
-const userService = require("../services/user_services.js");
+const userService = require("../services/user_service.js");
 
 class UserController {
-  create = (req, res) => {
+  constructor() { }
+
+  create = (req, res, next) => {
     if (!req.body) {
       res.status(400).send({
         message: "Content can not be empty"
@@ -11,9 +13,16 @@ class UserController {
 
     const user = new User({
       user_name: req.body.user_name,
-      phone_number: req.body.phone_number
+      user_password: req.body.user_password,
+      email: req.body.email,
+      age: req.body.age,
+      gender: req.body.gender,
+      city: req.body.city,
+      aadhaar_number: req.body.aadhaar_number,
+      phone_number: req.body.phone_number,
     });
 
+    console.log("UserService.create() called");
     userService.create(user, (err, data) => {
       if (err)
         res.status(500).send({
@@ -22,9 +31,10 @@ class UserController {
         });
       else res.send(data);
     });
-  };
+  }
 
-  getUsers = (req, res) => {
+  getUsers = (req, res, next) => {
+    console.log("UserService.getAll() called");
     userService.getAll((err, data) => {
       if (err)
         res.status(500).send({
@@ -34,6 +44,7 @@ class UserController {
       else res.send(data);
     })
   }
+
 }
 
 module.exports = UserController;
