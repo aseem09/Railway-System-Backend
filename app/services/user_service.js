@@ -1,5 +1,4 @@
 const sql = require("./db.js");
-var User = require('../models/user_model')
 
 class UserService {
     create = (newUser, result) => {
@@ -25,4 +24,4 @@ class UserService {
     };
 }
 
-module.exports = UserService; 3
+module.exports = new UserService();
