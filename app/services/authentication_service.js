@@ -1,16 +1,18 @@
 const sql = require("./db.js");
 
 class AuthenticationService {
-    getUserFromId = (user_name, password, result) => {
-        sql.query("SELECT * FROM users WHERE user_name = ? AND password = ?", user_name, password, (err, res) => {
+    getUserFromId = (user, result) => {
+        sql.query('SELECT * FROM users WHERE user_name = ? AND user_password = ?;', [user.user_name, user.user_password], (err, res) => {
             if (err) {
                 console.log("Error " + err);
                 result(err, null);
                 return;
             }
+            console.log(res);
             result(null, res);
+            
         });
     };
 }
 
-module.exports = AuthenticationService;
+module.exports = new AuthenticationService();

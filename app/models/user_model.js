@@ -4,6 +4,7 @@ const User = function (user) {
   this.email = user.email;
   this.age = user.age;
   this.gender = user.gender;
+  this.address = user.address;
   this.city = user.city;
   this.aadhaar_number = user.aadhaar_number;
   this.phone_number = user.phone_number;
