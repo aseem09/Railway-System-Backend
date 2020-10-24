@@ -12,6 +12,7 @@ class AuthenticationController {
       user_password: req.body.user_password,
     });
 
+    console.log("UserService.getUserFromId() called");
     userService.getUserFromId(user, (err, data) => {
       if (err)
         res.status(500).send({
