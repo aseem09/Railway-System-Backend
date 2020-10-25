@@ -14,6 +14,7 @@ app.use(router);
 
 require("./app/routes/user_routes.js")(router);
 require("./app/routes/authentication_routes.js")(router);
+require("./app/routes/insertTrain_routes.js")(router);
 
 app.get("/", (req, res) => {
   res.json({ message: "Railway System" });
