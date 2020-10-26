@@ -1,6 +1,6 @@
 
 const User = require('../models/user_model.js');
-const authenticationService = require('../services/authentication_service.js')
+const userService = require('../services/user_service.js')
 
 class AuthenticationController {
   login = (req, res) => {
@@ -12,7 +12,8 @@ class AuthenticationController {
       user_password: req.body.user_password,
     });
 
-    authenticationService.getUserFromId(user, (err, data) => {
+    console.log("UserService.getUserFromId() called");
+    userService.getUserFromId(user, (err, data) => {
       if (err)
         res.status(500).send({
           message:

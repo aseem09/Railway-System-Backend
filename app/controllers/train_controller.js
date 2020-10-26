@@ -1,5 +1,5 @@
-const Train = require("../models/Train_model.js");
-const insertTrainService = require("../services/insertTrain_service.js");
+const Train = require("../models/train_model.js");
+const insertTrainService = require("../services/train_service.js");
 
 class insertTrainController {
 
