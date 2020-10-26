@@ -33,3 +33,20 @@ USE railwaydb;
 --     aadhaar_number int(25) NOT NULL,
 --     phone_number int(10) NOT NULL
 -- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- CREATE TABLE stations (
+--     station_name varchar(255) NOT NULL,
+--     city varchar(255) NOT NULL,
+--     PRIMARY KEY (station_name)
+-- );
+-- CREATE TABLE trainStartPoints (
+--     train_number int(10) NOT NULL,
+--     station_name varchar(255) NOT NULL,
+--     PRIMARY KEY (train_number)
+-- );
+
+-- CREATE TABLE trainDestinationPoints (
+--     train_number int(10) NOT NULL,
+--     station_name varchar(255) NOT NULL,
+--     PRIMARY KEY (train_number,station_name)
+-- );

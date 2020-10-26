@@ -1,7 +1,6 @@
 const Train = require("../models/train_model.js");
 const insertTrainService = require("../services/train_service.js");
-
-class insertTrainController {
+class TrainController {
 
   create = (req, res) => {
     if (!req.body) {
@@ -16,7 +15,7 @@ class insertTrainController {
       seats: req.body.seats
     });
 
-    console.log("insertTrainService.create() called");
+    console.log("TrainService.create() called");
     insertTrainService.create(train, (err, data) => {
       if (err)
         res.status(500).send({
@@ -28,7 +27,7 @@ class insertTrainController {
   }
 
   getTrains = (req, res) => {
-    console.log("insertTrainService.getAll() called");
+    console.log("TrainService.getAll() called");
     insertTrainService.getAll((err, data) => {
       if (err)
         res.status(500).send({
@@ -41,4 +40,4 @@ class insertTrainController {
 
 }
 
-module.exports = new insertTrainController();
+module.exports = new TrainController();
