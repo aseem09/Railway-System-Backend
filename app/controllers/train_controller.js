@@ -23,7 +23,7 @@ class TrainController {
           message:
             err.message || "Some error occurred while adding train"
         });
-      else res.send(data);
+      else console.log("Successfully added train");
     });
     const source = new TrainStation({
       train_number : req.body.train_number,
@@ -33,13 +33,13 @@ class TrainController {
       halt_time : req.body.source.halt_time
     });
     console.log("TrainService.addDestination() called");
-    trainService.addDestination(source, (err, data) => {
+    trainService.addDestination(source, (err) => {
       if (err)
         res.status(500).send({
           message:
             err.message || "Some error occurred while adding train"
         });
-      // else res.send(data);
+      else console.log("Source successfully added");
     });
     var currStation;
     for (currStation of req.body.stops)
@@ -52,15 +52,16 @@ class TrainController {
         halt_time : currStation.halt_time
       })
       console.log("TrainService.addDestination() called");
-      trainService.addDestination(dest, (err, data) => {
+      trainService.addDestination(dest, (err) => {
         if (err)
           res.status(500).send({
             message:
               err.message || "Some error occurred while adding train"
           });
-        // else res.send(data);
+        else console.log("Destination successfully added");
       });
     }
+    res.send("Successfully added train and its destinations");
   }
 
   getTrains = (req, res) => {

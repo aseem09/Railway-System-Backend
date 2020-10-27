@@ -19,7 +19,7 @@ class TrainService {
                 result(err, null);
                 return;
             }
-            result(null, { id: res.insertId, ...newDest });
+            result(null);
         });
     };
 
