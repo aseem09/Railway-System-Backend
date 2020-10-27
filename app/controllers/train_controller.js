@@ -1,5 +1,6 @@
 const Train = require("../models/train_model.js");
-const insertTrainService = require("../services/train_service.js");
+const trainService = require("../services/train_service.js");
+const TrainStation = require("../models/trainstation_model.js");
 class TrainController {
 
   create = (req, res) => {
@@ -16,7 +17,7 @@ class TrainController {
     });
 
     console.log("TrainService.create() called");
-    insertTrainService.create(train, (err, data) => {
+    trainService.create(train, (err, data) => {
       if (err)
         res.status(500).send({
           message:
@@ -24,11 +25,47 @@ class TrainController {
         });
       else res.send(data);
     });
+    const source = new TrainStation({
+      train_number : req.body.train_number,
+      station_name : req.body.source.station_name,
+      arrival_time : req.body.source.arrival_time,
+      departure_time : req.body.source.departure_time,
+      halt_time : req.body.source.halt_time
+    });
+    console.log("TrainService.addDestination() called");
+    trainService.addDestination(source, (err, data) => {
+      if (err)
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while adding train"
+        });
+      // else res.send(data);
+    });
+    var currStation;
+    for (currStation of req.body.stops)
+    {
+      var dest = new TrainStation({
+        train_number : req.body.train_number,
+        station_name : currStation.station_name,
+        arrival_time : currStation.arrival_time,
+        departure_time : currStation.departure_time,
+        halt_time : currStation.halt_time
+      })
+      console.log("TrainService.addDestination() called");
+      trainService.addDestination(dest, (err, data) => {
+        if (err)
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while adding train"
+          });
+        // else res.send(data);
+      });
+    }
   }
 
   getTrains = (req, res) => {
     console.log("TrainService.getAll() called");
-    insertTrainService.getAll((err, data) => {
+    trainService.getAll((err, data) => {
       if (err)
         res.status(500).send({
           message:

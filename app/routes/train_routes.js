@@ -1,7 +1,7 @@
-const insertTrainController = require("../controllers/train_controller");
+const trainController = require("../controllers/train_controller.js");
 
 module.exports = router => {
 
-  router.post('/train', insertTrainController.create);
+  router.post('/train', trainController.create);
 
 };

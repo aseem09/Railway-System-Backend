@@ -1,6 +1,6 @@
 const sql = require("./db.js");
 
-class insertTrainService {
+class TrainService {
     create = (newTrain, result) => {
         sql.query("INSERT INTO trains SET ?", newTrain, (err, res) => {
             if (err) {
@@ -9,6 +9,17 @@ class insertTrainService {
                 return;
             }
             result(null, { id: res.insertId, ...newTrain });
+        });
+    };
+
+    addDestination = (newDest, result) => {
+        sql.query("INSERT INTO destinations SET ?", newDest, (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+                return;
+            }
+            result(null, { id: res.insertId, ...newDest });
         });
     };
 
@@ -24,4 +35,4 @@ class insertTrainService {
     };
 }
 
-module.exports = new insertTrainService();
+module.exports = new TrainService();

@@ -50,3 +50,12 @@ USE railwaydb;
 --     station_name varchar(255) NOT NULL,
 --     PRIMARY KEY (train_number,station_name)
 -- );
+DROP TABLE destinations;
+CREATE TABLE destinations (
+    train_number int(10) NOT NULL,
+    station_name varchar(255) NOT NULL,
+    arrival_time TIME(0),
+    departure_time TIME(0),
+    halt_time int(2),
+    PRIMARY KEY (train_number,station_name)
+)
