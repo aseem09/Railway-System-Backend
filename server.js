@@ -13,6 +13,10 @@ app.use(router);
 
 require("./app/routes/user_routes.js")(router);
 require("./app/routes/authentication_routes.js")(router);
+require("./app/routes/train_routes.js")(router);
+require("./app/routes/passenger_routes.js")(router);
+require("./app/routes/booking_routes.js")(router);
+require("./app/routes/station_routes.js")(router);
 require("./app/routes/passenger_routes.js")(router);
 require("./app/routes/booking_routes.js")(router);
 
