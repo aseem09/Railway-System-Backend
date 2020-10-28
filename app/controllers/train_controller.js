@@ -2,12 +2,9 @@ const Train = require("../models/train_model.js");
 const ChangeTrain = require("../models/change_train_model.js");
 const trainService = require("../services/train_service.js");
 const TrainStation = require("../models/trainstation_model.js");
-<<<<<<< Updated upstream
 const changeTrainService = require("../services/changes_train_service.js");
 
-=======
 const SearchQuery = require("../models/search_model.js");
->>>>>>> Stashed changes
 class TrainController {
 
   create = (req, res) => {
