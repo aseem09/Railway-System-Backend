@@ -12,7 +12,7 @@ USE railwaydb;
 -- 	user_id int(11) NOT NULL,
 -- 	passenger_id int(11) NOT NULL,
 --     PRIMARY KEY (user_id)
--- );   
+-- );
 
 -- CREATE TABLE passengers(
 -- 	id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -50,12 +50,27 @@ USE railwaydb;
 --     station_name varchar(255) NOT NULL,
 --     PRIMARY KEY (train_number,station_name)
 -- );
-DROP TABLE destinations;
-CREATE TABLE destinations (
+
+-- CREATE TABLE destinations (
+--     train_number int(10) NOT NULL,
+--     station_name varchar(255) NOT NULL,
+--     arrival_time TIME(0),
+--     departure_time TIME(0),
+--     halt_time int(2),
+--     PRIMARY KEY (train_number,station_name)
+-- )
+
+CREATE TABLE tickets(
+	id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    passenger_id int(11) NOT NULL,
+	user_name varchar(255) NOT NULL,
+    age int(3) NOT NULL,
+    gender varchar(10) NOT NULL,
+    pnr_number int(11) NOT NULL,
+    seat_number int(3) NOT NULL,
     train_number int(10) NOT NULL,
-    station_name varchar(255) NOT NULL,
-    arrival_time TIME(0),
-    departure_time TIME(0),
-    halt_time int(2),
-    PRIMARY KEY (train_number,station_name)
-)
+    fare int(5) NOT NULL,
+    reservation_status varchar(100) NOT NULL,
+    source varchar(255) NOT NULL,
+    destination varchar(255) NOT NULL,
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -1,19 +1,19 @@
 const sql = require("./db.js");
 
-class PassengerService {
-    create = (passenger, result) => {
-        sql.query("INSERT INTO passengers SET ?", passenger, (err, res) => {
+class TicketService {
+    create = (ticket, result) => {
+        sql.query("INSERT INTO tickets SET ?", ticket, (err, res) => {
             if (err) {
                 console.log("error: ", err);
                 result(err, null);
                 return;
             }
-            result(null, { id: res.insertId, ...passenger });
+            result(null, { id: res.insertId, ...ticket });
         });
     };
 
     getAll = (result) => {
-        sql.query("SELECT * FROM passengers", (err, res) => {
+        sql.query("SELECT * FROM tickets", (err, res) => {
             if (err) {
                 console.log("Error " + err);
                 result(err, null);
@@ -23,4 +23,4 @@ class PassengerService {
         });
     };
 }
-module.exports = new PassengerService();
+module.exports = new TicketService();
