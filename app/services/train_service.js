@@ -33,6 +33,17 @@ class TrainService {
             result(null, res);
         });
     };
+    getSearchResults = (searchQuery,result)=> {
+        sql.query("SELECT train_number, arrival_time, departure_time, halt_time FROM destinations WHERE train_number IN (SELECT train_number FROM destinations WHERE destinations.station_name IN (?,?) GROUP BY train_number HAVING COUNT(DISTINCT station_name) = 2) AND station_name = ?;",[searchQuery.start, searchQuery.stop, searchQuery.start], (err, res) => {
+            if (err) {
+                console.log("Error " + err);
+                result(err, null);
+                return;
+            }
+            console.log(res);
+            result(null, res);
+        });
+    };
 }
 
 module.exports = new TrainService();

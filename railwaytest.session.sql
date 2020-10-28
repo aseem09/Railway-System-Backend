@@ -51,6 +51,7 @@ USE railwaydb;
 --     PRIMARY KEY (train_number,station_name)
 -- );
 
+-- DROP TABLE destinations;
 -- CREATE TABLE destinations (
 --     train_number int(10) NOT NULL,
 --     station_name varchar(255) NOT NULL,
@@ -98,3 +99,8 @@ USE railwaydb;
 -- 	admin_id int(11) NOT NULL,
 -- 	station_name varchar(255) NOT NULL
 -- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+SELECT train_number
+FROM destinations
+WHERE destinations.station_name IN ('Agra1','Agra2')
+GROUP BY train_number
+HAVING COUNT(DISTINCT destinations.station_name) = 2;
