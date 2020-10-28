@@ -4,6 +4,7 @@ const trainService = require("../services/train_service.js");
 const TrainStation = require("../models/trainstation_model.js");
 const changeTrainService = require("../services/changes_train_service.js");
 
+const SearchQuery = require("../models/search_model.js");
 class TrainController {
 
   create = (req, res) => {
@@ -96,7 +97,28 @@ class TrainController {
       else res.send(data);
     })
   }
+  getSearchResults = (req, res) => {
+    if (!req.body) {
+      res.status(400).send({
+        message: "Content can not be empty"
+      });
+    }
 
+    const searchQuery = new SearchQuery({
+      start: req.body.start,
+      stop: req.body.stop
+    });
+
+    console.log("TrainService.getSearchResults() called");
+    trainService.getSearchResults(searchQuery, (err, data) => {
+      if (err)
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while adding station"
+        });
+      else res.send(data);
+    });
+  }
 }
 
 module.exports = new TrainController();
