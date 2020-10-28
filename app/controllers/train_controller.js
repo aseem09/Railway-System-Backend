@@ -1,6 +1,9 @@
 const Train = require("../models/train_model.js");
+const ChangeTrain = require("../models/change_train_model.js");
 const trainService = require("../services/train_service.js");
 const TrainStation = require("../models/trainstation_model.js");
+const changeTrainService = require("../services/changes_train_service.js");
+
 class TrainController {
 
   create = (req, res) => {
@@ -16,21 +19,26 @@ class TrainController {
       seats: req.body.seats
     });
 
+    var json = train;
+
     console.log("TrainService.create() called");
-    trainService.create(train, (err, data) => {
+    trainService.create(train, (err, train_data) => {
       if (err)
         res.status(500).send({
           message:
             err.message || "Some error occurred while adding train"
         });
-      else console.log("Successfully added train");
+      else {
+        json = train_data;
+        console.log("Successfully added train");
+      }
     });
     const source = new TrainStation({
-      train_number : req.body.train_number,
-      station_name : req.body.source.station_name,
-      arrival_time : req.body.source.arrival_time,
-      departure_time : req.body.source.departure_time,
-      halt_time : req.body.source.halt_time
+      train_number: req.body.train_number,
+      station_name: req.body.source.station_name,
+      arrival_time: req.body.source.arrival_time,
+      departure_time: req.body.source.departure_time,
+      halt_time: req.body.source.halt_time
     });
     console.log("TrainService.addDestination() called");
     trainService.addDestination(source, (err) => {
@@ -42,14 +50,14 @@ class TrainController {
       else console.log("Source successfully added");
     });
     var currStation;
-    for (currStation of req.body.stops)
-    {
+    for (currStation of req.body.stops) {
+
       var dest = new TrainStation({
-        train_number : req.body.train_number,
-        station_name : currStation.station_name,
-        arrival_time : currStation.arrival_time,
-        departure_time : currStation.departure_time,
-        halt_time : currStation.halt_time
+        train_number: req.body.train_number,
+        station_name: currStation.station_name,
+        arrival_time: currStation.arrival_time,
+        departure_time: currStation.departure_time,
+        halt_time: currStation.halt_time
       })
       console.log("TrainService.addDestination() called");
       trainService.addDestination(dest, (err) => {
@@ -61,7 +69,20 @@ class TrainController {
         else console.log("Destination successfully added");
       });
     }
-    res.send("Successfully added train and its destinations");
+
+    const change = new ChangeTrain({
+      admin_id: 1,
+      train_number: req.body.train_number,
+    });
+
+    changeTrainService.create(change, (err) => {
+      if (err)
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while adding train"
+        });
+      else res.send(json);
+    });
   }
 
   getTrains = (req, res) => {
