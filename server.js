@@ -3,12 +3,14 @@ const router = express.Router();
 const bodyParser = require("body-parser");
 const dotenv = require('dotenv');
 dotenv.config();
+var cors = require('cors')
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(cors()) 
 app.use(router);
 
 require("./app/routes/user_routes.js")(router);
@@ -28,6 +30,6 @@ app.get("/", (req, res) => {
   res.json({ message: "Railway System" });
 });
 
-app.listen(3000, () => {
+app.listen(5000, () => {
   console.log("Server is running on port 3000.");
 });
