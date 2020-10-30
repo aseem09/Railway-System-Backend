@@ -1,6 +1,6 @@
 
 -- CREATE DATABASE railwaydb;
-USE railwaydb;
+-- USE railwaydb;
 -- CREATE TABLE trains (
 --     train_number int(10) NOT NULL,
 --     train_name varchar(255) NOT NULL,
@@ -99,8 +99,28 @@ USE railwaydb;
 -- 	admin_id int(11) NOT NULL,
 -- 	station_name varchar(255) NOT NULL
 -- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-SELECT train_number
-FROM destinations
-WHERE destinations.station_name IN ('Agra1','Agra2')
-GROUP BY train_number
-HAVING COUNT(DISTINCT destinations.station_name) = 2;
+-- SELECT train_number
+-- FROM destinations
+-- WHERE destinations.station_name IN ('Agra1','Agra2')
+-- GROUP BY train_number
+-- HAVING COUNT(DISTINCT destinations.station_name) = 2;
+SELECT source.train_number, source.arrival_time, source.departure_time, dest.arrival_time, dest.departure_time
+FROM 
+(SELECT *
+FROM destinations 
+WHERE train_number 
+IN (SELECT train_number 
+    FROM destinations 
+    WHERE destinations.station_name 
+    IN ('Amritsar','Chandigarh') 
+    GROUP BY train_number 
+    HAVING COUNT(DISTINCT station_name) = 2) AND station_name = 'Amritsar') as source INNER JOIN
+(SELECT *
+FROM destinations 
+WHERE train_number 
+IN (SELECT train_number 
+    FROM destinations 
+    WHERE destinations.station_name 
+    IN ('Amritsar','Chandigarh') 
+    GROUP BY train_number 
+    HAVING COUNT(DISTINCT station_name) = 2) AND station_name = 'Chandigarh') as dest on source.train_number = dest.train_number;
