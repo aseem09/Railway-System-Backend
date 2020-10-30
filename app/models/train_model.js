@@ -3,5 +3,5 @@ const Train = function (train) {
     this.train_name = train.train_name;
     this.seats = train.seats;
   };
-  
+
   module.exports = Train;
