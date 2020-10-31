@@ -110,14 +110,40 @@ class TrainController {
       stop: req.body.stop
     });
 
+    
     console.log("TrainService.getSearchResults() called");
     trainService.getSearchResults(searchQuery, (err, data) => {
-      if (err)
+      if (err) {
         res.status(500).send({
           message:
             err.message || "Some error occurred while adding station"
         });
-      else res.send(data);
+      }
+      else {
+        let json = [];
+        for (let i = 0; i < data.length; i++) {
+          let train = data[i];
+          trainService.getTrainFromId(train.train_number, (err, train_data) => {
+            if (err) {
+              res.status(500).send({
+                message:
+                  err.message || "Some error occurred while adding station"
+              });
+            }
+            else {
+              const obj = {
+                train_name: train_data[0].train_name,
+                cost: 100 + Math.floor(Math.random() * (1000 - 100 + 1)),
+                ...train
+              };
+              json.push(obj);
+              if (json.length == data.length) {
+                res.send(json)
+              }
+            }
+          });
+        }
+      }
     });
   }
 }

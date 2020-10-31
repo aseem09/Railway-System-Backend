@@ -18,6 +18,7 @@ class PassengerController {
             user_name: req.body.user_name,
             age: req.body.age,
             gender: req.body.gender,
+            cost: req.body.cost,
         });
 
         console.log("PassengerService.create() called");
@@ -49,7 +50,7 @@ class PassengerController {
                             pnr_number :  1000000 + Math.floor(Math.random() * (10000000 - 1000000 + 1)),
                             seat_number :  10 + Math.floor(Math.random() * (100 - 10 + 1)),
                             train_number :  req.body.train_number,
-                            fare :  100 + Math.floor(Math.random() * (1000 - 100 + 1)),
+                            fare :  req.body.cost,
                             reservation_status :  "CONFIRMED",
                             source :  req.body.source,
                             destination :  req.body.destination,

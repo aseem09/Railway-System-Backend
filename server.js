@@ -10,7 +10,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(cors()) 
+app.use(cors());
 app.use(router);
 
 require("./app/routes/user_routes.js")(router);
@@ -31,5 +31,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(5000, () => {
-  console.log("Server is running on port 3000.");
+  console.log("Server is running on port 5000.");
 });
