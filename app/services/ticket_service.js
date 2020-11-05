@@ -19,6 +19,7 @@ class TicketService {
                 result(err, null);
                 return;
             }
+            console.log(res)
             result(null, res);
         });
     };

@@ -97,6 +97,7 @@ class TrainController {
       else res.send(data);
     })
   }
+  
   getSearchResults = (req, res) => {
     console.log(req.body)
     if (!req.body) {
@@ -110,7 +111,7 @@ class TrainController {
       stop: req.body.stop
     });
 
-    
+
     console.log("TrainService.getSearchResults() called");
     trainService.getSearchResults(searchQuery, (err, data) => {
       if (err) {

@@ -8,7 +8,7 @@ class TrainService {
                 result(err, null);
                 return;
             }
-            result(null, { id: res.insertId, ...newTrain });
+            result(null, { id: 13, ...newTrain });
         });
     };
 
